@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        table { border-collapse: collapse; width: 80%; margin-top: 20px; }
+        th, td { border: 1px solid #999; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        form { margin-top: 20px; display: inline-block; }
+        input, select { margin: 5px; padding: 5px; }
+        .btn { padding: 6px 12px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1> To-Do List</h1>
+
+    {% if todos %}
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Email</th>
+            <th>Priority</th>
+        </tr>
+        {% for todo in todos %}
+        <tr>
+            <td>{{ todo.task }}</td>
+            <td>{{ todo.email }}</td>
+            <td>{{ todo.priority }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No tasks yet — add one below!</p>
+    {% endif %}
+
+    <h2>Add a new To-Do Item</h2>
+    <form action="/submit" method="post">
+        <input type="text" name="task" placeholder="Task" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <select name="priority" required>
+            <option value="">Priority</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <button class="btn" type="submit">Add To-Do Item</button>
+    </form>
+
+    <form action="/clear" method="post">
+        <button class="btn" type="submit" style="background-color: #f55; color: white;">Clear List</button>
+    </form>
+
+    <form action="/save" method="post">
+        <button class="btn" type="submit" style="background-color: #5a5; color: white;">Save List</button>
+    </form>
+</body>
+</html>
